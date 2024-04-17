@@ -1,53 +1,34 @@
-function displayTemperature(response) {
-  let temperatureElement = document.querySelector("#current-temperature");
-  let temperature = Math.round(response.data.temperature.current);
-  let cityElement = document.querySelector("#current-city");
-  cityElement.innerHTML = response.data.city;
-  temperatureElement.innerHTML = temperature;
+import React from "react";
+import Weather from "./Weather";
+import "./App.css";
+
+export default function App() {
+  return (
+    <div className="App">
+      <div className="container">
+        <Weather defaultCity="New York" />
+
+        <footer>
+          This project was coded by
+          <a href="" target="_blank" rel="noopener noreferrer">
+            Makgotso Ntai
+          </a>{" "}
+          and is{" "}
+          <a
+            href="https://github.com/Makgotso01/React-weatherappp"
+            target="_blank"
+            rel="noopener noreferrer">
+            open-sourced on GitHub
+          </a>{" "}
+          and{" "}
+          <a
+            href="https://kaleidoscopic-semolina-f30b47.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer">
+            hosted on Netlify
+          </a>
+        </footer>
+      </div>
+    </div>
+  );
 }
-
-function search(event) {
-  event.preventDefault();
-  let searchInputElement = document.querySelector("#search-input");
-  let city = searchInputElement.value;
-
-  let apiKey = "b2a5adcct04b33178913oc335f405433";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-
-  axios.get(apiUrl).then(displayTemperature);
-}
-
-function formatDate(date) {
-  let minutes = date.getMinutes();
-  let hours = date.getHours();
-  let day = date.getDay();
-
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-
-  let formattedDay = days[day];
-  return `${formattedDay} ${hours}:${minutes}`;
-}
-
-let searchForm = document.querySelector("#search-form");
-searchForm.addEventListener("submit", search);
-
-let currentDateELement = document.querySelector("#current-date");
-let currentDate = new Date();
-
-currentDateELement.innerHTML = formatDate(currentDate);
